@@ -1,0 +1,3 @@
+ec2-user@host1
+ec2-user@host2
+ec2-user@host3
