@@ -5,9 +5,7 @@
 # ignore below files 
 .env
 .txt
-.pem
 scratchpad
-cockroach-davidj.pem
 
 # ignore terraform files
 .terraform/
@@ -15,3 +13,6 @@ cockroach-davidj.pem
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfvars
+
+# ignore private/secret files
+*.pem
