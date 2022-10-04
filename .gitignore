@@ -14,3 +14,6 @@ scratchpad
 terraform.tfstate
 terraform.tfstate.backup
 terraform.tfvars
+
+#ignore key files
+cockroach-davidj.pem
