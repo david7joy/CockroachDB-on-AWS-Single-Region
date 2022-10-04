@@ -7,6 +7,9 @@ This repo provides you with the ability to launch a single region(topology) Cock
 - Terraform - To automate infrasturture build on AWS
 - PSSH - To setup AWS EC2 Instance that will be part of CRDB cluster
 
+#Feedback 
+- SSH tunnel or VPN Tunnel swap with IGW
+
 ### Cluster Topology
 
 ![Topology](Single-Region-AWS.png)
@@ -111,7 +114,7 @@ Below are some key things you need to do after you install cockroach binary on y
 
         cockroach sql --certs-dir=certs --host=<address of any node on --join list>
         
-        CREATE USER with_password WITH LOGIN PASSWORD '$tr0nGpassW0rD'
+        CREATE USER with_password WITH LOGIN PASSWORD 'add_password'
 
         show users;
 
@@ -128,10 +131,10 @@ For Application Load Balancers and Network Load Balancers, use the following com
 
 - Initialize the tpcc workload
 
-        cockroach workload init tpcc 'postgresql://root@my-nlb-demo-eedb484ae82f55bd.elb.us-east-1.amazonaws.com:26257/tpcc?sslmode=verify-full&sslrootcert=certs/ca.crt&sslcert=certs/client.root.crt&sslkey=certs/client.root.key'
+        cockroach workload init tpcc 'postgresql://root@ip-or-dns-name-of-network-load-balancer:26257/tpcc?sslmode=verify-full&sslrootcert=certs/ca.crt&sslcert=certs/client.root.crt&sslkey=certs/client.root.key'
 
 - Run the workload against the aws load balancer
 
-        cockroach workload run tpcc --duration=10m 'postgresql://root@my-nlb-demo-eedb484ae82f55bd.elb.us-east-1.amazonaws.com:26257/tpcc?sslmode=verify-full&sslrootcert=certs/ca.crt&sslcert=certs/client.root.crt&sslkey=certs/client.root.key'
+        cockroach workload run tpcc --duration=10m 'postgresql://root@ip-or-dns-name-of-network-load-balancer:26257/tpcc?sslmode=verify-full&sslrootcert=certs/ca.crt&sslcert=certs/client.root.crt&sslkey=certs/client.root.key'
 
 
