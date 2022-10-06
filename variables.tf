@@ -14,9 +14,13 @@ variable "availability_zones" {
 }
 
 variable "vpc_cidr_block" {
-  default = ["172.71.0.0/26"]
+  default = ["172.71.0.0/24"]
 }
 
 variable "outside_ip" {
-  default = ["add-local-machine-ip"]
+  default = ["you-local-ip"]
+}
+
+variable "key_name" {
+  default = "your-key"
 }

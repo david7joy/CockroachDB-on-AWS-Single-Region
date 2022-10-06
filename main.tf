@@ -45,7 +45,7 @@ resource "aws_security_group" "tf_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = var.outside_ip
+    cidr_blocks = var.vpc_cidr_block
   }
 
   ingress {
@@ -61,19 +61,11 @@ resource "aws_security_group" "tf_sg" {
     from_port = 26257
     to_port = 26257
     protocol = "tcp"
-    cidr_blocks = var.outside_ip
+    cidr_blocks = var.vpc_cidr_block
   }
 
   ingress {
     description = "dbconsole"
-    from_port = 8080
-    to_port = 8080
-    protocol = "tcp"
-    cidr_blocks = var.outside_ip
-  }
-
-  ingress {
-    description = "Load balancer-health check communication"
     from_port = 8080
     to_port = 8080
     protocol = "tcp"
@@ -134,7 +126,7 @@ resource "aws_instance" "cockroachdb-node" {
   subnet_id                   = aws_subnet.sbn[count.index].id
   associate_public_ip_address = true
   security_groups             = [aws_security_group.tf_sg.id]
-  key_name                    = "ssh-key"
+  key_name                    = var.key_name
 
   # root block device is instance store - not encrypted or backed up, if needed then use ebs volume
   root_block_device {
@@ -150,7 +142,7 @@ resource "aws_instance" "cockroachdb-node" {
 # Creates AWS load balancer 
 resource "aws_lb" "my-nlb-demo" {
   name               = "my-nlb-demo"
-  internal           = false
+  internal           = true
   load_balancer_type = "network"
   subnets            = [for subnet in aws_subnet.sbn : subnet.id]
 
@@ -194,4 +186,4 @@ resource "aws_lb_target_group_attachment" "tg_attach" {
     count = var.instance_count
     target_group_arn = aws_lb_target_group.my_target_group.arn
     target_id = aws_instance.cockroachdb-node[count.index].id
-}
+} 
