@@ -92,7 +92,7 @@ https://www.cockroachlabs.com/docs/v22.1/deploy-cockroachdb-on-aws.html
         terraform output              
 
 3. Go to `AWS Cloud Console` and verify all the infrastructure is build as expected. 
-----
+
 ## 2. Setting up a VPN Tunnel for secure remote access
 <br />
 Note : `This step is only needed if you want to create a VPN Tunnel for secure access, if you do not want to then can continue with connecting through the Internet Gateway. The architecture for the same will look like below.`
@@ -127,7 +127,7 @@ Note : `This step is only needed if you want to create a VPN Tunnel for secure a
 
 4. These step can vary depending on how you want to configure the cluster. You can setup the cluster either insecure or secure. Follow the [secure](https://www.cockroachlabs.com/docs/v22.1/deploy-cockroachdb-on-aws.html#step-5-generate-certificates 
 ) cluster creation steps. 
-----
+
 ## 3. Starting CockroachDB
 
 Follow the steps described [here](https://www.cockroachlabs.com/docs/v22.1/deploy-cockroachdb-on-aws.html#step-6-start-nodes). Below are some key things you need to do after you install cockroach binary on your local machine. 
@@ -160,7 +160,7 @@ Follow the steps described [here](https://www.cockroachlabs.com/docs/v22.1/deplo
         show users;
 
     Note : Since we have a self signed certificate the browser may show that its insecure connection .To solve this in production, you can use a separate ui.crt/ui.key that is signed by some known cert authority (Verisign or whatever) -- if you do this, the DB Console will use that key/cert pair for its TLS while the CRDB nodes will still use the node certs signed by your self-signed cert.
-----
+
 ## 4. Workload testing
 
 We will be running the workload against the aws load balancer that we created. For this we need the IP address or DNS of the load balancer. 
